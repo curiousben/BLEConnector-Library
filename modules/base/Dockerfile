@@ -3,7 +3,7 @@
 # Author: BenSmith(CuriousBen)
 ####################################
 
-FROM curiousben/redismq-nodejs-amd:latest
+FROM curiousben/redismq-nodejs-arm:latest
 
 #----INFO: Load the environmental variables
 ARG NPM_PACKAGE
@@ -12,6 +12,9 @@ ARG NPM_PACKAGE_VERSION
 #----INFO: Labeling the image
 LABEL version=${NPM_PACKAGE_VERSION} \
       maintainer="benjamindsmith3@gmail.com"
+
+#----INFO: Copying the ARM Processor emulator
+COPY qemu-arm-static /usr/bin
 
 #----INFO:Coping local tarball of RedisMQ client
 COPY ${NPM_PACKAGE} /tmp/
@@ -23,7 +26,7 @@ RUN apk update --no-cache \
   && npm install /tmp/${NPM_PACKAGE} --production --global \
 
 #----INFO:INFO: Linking the RedisMQ library so any program can use it
-  && npm link filter \
+  && npm link bleconnector \
 
 #----INFO:Remove the tarball of RedisMQ
   && rm /tmp/${NPM_PACKAGE} \
