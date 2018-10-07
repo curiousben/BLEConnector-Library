@@ -1,24 +1,13 @@
 #!/usr/bin/env groovy
 pipeline {
-    agent any
+    agent none
     environment {
       LIBRARY_PATH = 'modules/base'
       MICROSERVICE = 'bleconnector'
-      VERSION = '2.0.0'
+      VERSION = '1.1.0'
     }
     stages {
-        stage('Pull Github Repo'){
-            steps {
-                deleteDir()
-                checkout([$class: 'GitSCM',
-                    branches: [[name: '*/master']],
-                    doGenerateSubmoduleConfigurations: false,
-                    submoduleCfg: [],
-                    userRemoteConfigs: [[url: 'https://github.com/curiousben/BLEConnector-Microservice.git']]
-                ])
-            }
-        }
-        stage('Install, Test, and Build Filter') {
+        stage('Install, Test, and Build BLEConnector') {
             agent {
                 docker 'node:8.12.0-jessie'
             }
