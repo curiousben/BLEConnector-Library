@@ -1,8 +1,8 @@
 {
-  "name": "bleconnector",
+  "name": "ble-connector",
   "version": "1.1.0",
   "description": "Device to detect BLE signals",
-  "main": "./ble.js",
+  "main": "./ble-connector.js",
   "author": "Benjamin Smith",
   "license": "MIT",
   "scripts": {
